@@ -1,0 +1,31 @@
+function addB(e, key) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://" + key + ".sheet2site.com/u", true);
+    xhr.onreadystatechange = function() {
+        stateChanged(e, key);
+    };
+    xhr.send();
+}
+
+function stateChanged(e, key) {
+    if (xhr.readyState === 4) {
+        e.parentNode.removeChild(e);
+    }
+}
+
+window.addEventListener('load', function() {
+    var random_n = 0;
+    var emebeddedTemplatesMap = {
+        jobboard: "1oDjyEGclx7ovZBLAs9xlDxDWGz-v_Z8i0bI5HZ8Rb3Q",
+        table: "1NP8SwZFIC7ICnsqmjMqJ-PG02i9Bnu-tWBBS6KX-iuE",
+        business: "1KAJrWQvoJx9a59w79iyStklxUQeJa93LOtODWhwjFM8",
+        business2: "1pKbGT3L8j3B0eOUQnn_K_STijTnED5CIqdGpk8DIzXY",
+        digitalnomads: "1rZW8_Aw6L76SEGApgO5ycFtTBGxfJlYMZ9J8oR4t0"
+    };
+    for (var key in emebeddedTemplatesMap) {
+        if (document.querySelector("[data-sheet2site='" + emebeddedTemplatesMap[key] + "']")) {
+            var e = document.querySelector("[data-sheet2site='" + emebeddedTemplatesMap[key] + "']");
+            addB(e, key);
+        }
+    }
+});
